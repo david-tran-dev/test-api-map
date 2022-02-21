@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+        integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+        crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+        integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+        crossorigin=""></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="mapid" style="width: 640px; height: 480px;"></div>
+    <script>
+        // script à mettre dans un fichier JS
+        // token est perso creer sur mapbox.com
+        window.onload = function () {
+            // coordonnées GPS dans setViews
+
+
+            var mapBoxUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}';
+            var mapBoxAttribution =
+                'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+            var myToken =
+                'pk.eyJ1IjoiZnJlZGNoZW5vdCIsImEiOiJja3p3cnFodDgybTNtMnhwZTFwMGRjdm52In0.115ZMqntgucs1VnJ6VA6mg';
+            // vue street    
+            var tileStreets = L.tileLayer(mapBoxUrl, {
+                attribution: mapBoxAttribution,
+                maxZoom: 18,
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: myToken
+            });
+            // vue satellite   
+            var tileSatellite = L.tileLayer(mapBoxUrl, {
+                attribution: mapBoxAttribution,
+                maxZoom: 18,
+                id: 'mapbox/satellite-v9',
+                tileSize: 512,
+                zoomOffset: -1,
+                accessToken: myToken
+            });
+
+            var mymap = L.map('mapid', {
+                center: [48.194705766214184, 6.48797641173748],
+                zoom: 13,
+                layers: [tileStreets, tileSatellite],
+            });
+
+
+            var baseMaps = {
+                "Rues": tileStreets,
+                "Satellite": tileSatellite
+            };
+            var marker = L.marker([48.194705766214184, 6.48797641173748]).addTo(mymap);
+            marker.bindPopup("<b>Vous êtes ici !</br>").openPopup();
+            L.control.layers(baseMaps).addTo(mymap);
+
+
+        }
+    </script>
+</body>
+
+</html>
