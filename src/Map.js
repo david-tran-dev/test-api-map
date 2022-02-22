@@ -76,10 +76,8 @@ const Map = () => {
       </MapContainer>
 			<form onSubmit={handleSubmit}>
 			<label htmlFor="file">
-				<input type="file" id="file" onChange={handleChange}/>
-				<button type="submit">
+				<input type="file" id="file" onChange={handleChange} style={"display: none"}/>
 					Import your gpx file
-					</button>
 			</label>
 			</form>
 		</div>
