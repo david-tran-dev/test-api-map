@@ -2,7 +2,7 @@ import './App.css';
 import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
 import Map from './Map';
 
-function App( ) {
+function App() {
   return (
     <div className='App'>
      <Map />
