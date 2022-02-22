@@ -1,6 +1,5 @@
 module.exports = {
 	extends: ['@commitlint/config-conventional'],
-	module.exports = {
 		parserPreset: 'conventional-changelog-conventionalcommits',
 		rules: {
 			'body-leading-blank': [1, 'always'],
@@ -133,6 +132,5 @@ module.exports = {
 					description: 'Add issue references (e.g. "fix #123", "re #123".)',
 				},
 			},
-		},
-	}
+		}
 };
