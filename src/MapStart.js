@@ -1,18 +1,17 @@
-import { useRef, useState } from "react";
-import { MapContainer, TileLayer, Marker, Popup, useMapEvents, useMapEvent, Polyline, LayersControl, LayerGroup, Circle, FeatureGroup, Rectangle } from "react-leaflet";
+import { useEffect, useRef, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMapEvents, Map, Polyline, LayersControl, LayerGroup, Circle, FeatureGroup, Rectangle, useMapEvent, useMap } from "react-leaflet";
 // import 'leaflet/dist/leaflet.css';
 import './map.scss';
 import L from 'leaflet'
 import gpxParser from 'gpxparser';
 
-const Map = () => {
+const MapStart = () => {
 	const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
 	const [positions, setPositions] = useState([]);
 	const [trackName, setTrackName] = useState('');
 	const [wayPoints, setWayPoints] = useState([]);
 
 	const mapRef = useRef();
-	const defaultPosition = [45.4462, 6.2905]; // Paris position
 	
 	const getIcon = (iconSize) => {
 		return L.icon( {
@@ -21,27 +20,38 @@ const Map = () => {
 			iconAnchor: [20,30]
 		})
 	}
+	
+	
 
 	const LocationMarker = () => {
-		// const [position, setPosition] = useState(null)
-		const map = useMapEvent('click', 
-			() => {
-				if(positions.length > 0) {
-					SetFirstPosition(positions[0][0])
-					const [lat, lng] = positions[0][0];
-					const firstPosition = {lat, lng};
-					map.flyTo(firstPosition, map.getZoom())
-				}
-				
-			}
-		)
+		const map = useMap();
+		useEffect(() => {
+			map.locate().on('locationfound', (e) => {
+				SetFirstPosition(e.latlng);
+				console.log('e.latlng:', e.latlng)
+				map.flyTo(e.latlng, map.getZoom());
+				const radius = e.accuracy;
+        console.log('radius:', Math.round(radius))
+        const circle = L.circle(e.latlng, radius);
+        circle.addTo(map);
+			})
+			
+			
+		}, [map])
+
 		return null;
+	}
+
+				
+				
+			
+
 		// return firstPosition === null ? null : (
 		// 	<Marker position={firstPosition}>
 		// 		<Popup>You are here</Popup>
 		// 	</Marker>
 		// )
-	}
+	
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
@@ -130,16 +140,10 @@ const Map = () => {
 				</LayersControl>
       </MapContainer>
 
-			<form onSubmit={handleSubmit}>
-			<label htmlFor="file" style={{ background:"grey", padding:"5px 10px" }}>
-					Import your gpx file
-			</label>
-				<input type="file" id="file" onChange={handleInputFile} style={{display: "none"}}/>
-			</form>
-			{}
+	
 			
 		</div>
   );
 };
 
-export default Map;
+export default MapStart;
