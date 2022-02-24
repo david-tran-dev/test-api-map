@@ -1,3 +1,4 @@
+/* eslint-disable no-tabs */
 module.exports = {
   extends: ['@commitlint/config-conventional'],
   parserPreset: 'conventional-changelog-conventionalcommits',

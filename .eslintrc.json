@@ -18,6 +18,8 @@
         "react"
     ],
     "rules": {
+        "no-unused-vars": "off",
+        "global-require": "off",
       "linebreak-style": "off",
       "brace-style": ["error", "stroustrup"],
       "no-param-reassign": [

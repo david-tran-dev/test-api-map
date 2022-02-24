@@ -1,19 +1,15 @@
 /* eslint-disable react/no-array-index-key */
-/* eslint-disable new-cap */
-/* eslint-disable global-require */
 import { useEffect, useRef, useState } from 'react';
 import {
-  MapContainer, TileLayer, Marker, Popup, useMapEvents, Map, Polyline, LayersControl, LayerGroup, Circle, FeatureGroup, useMapEvent, useMap,
+  MapContainer, TileLayer, Marker, Popup, Polyline, LayersControl, LayerGroup, Circle, FeatureGroup, useMap,
 } from 'react-leaflet';
 // import 'leaflet/dist/leaflet.css';
 import './map.scss';
 import L from 'leaflet';
-import gpxParser from 'gpxparser';
 
 function MapStart() {
   const [firstPosition, SetFirstPosition] = useState([48.860647513789694, 2.340337536855448]);
   const [positions, setPositions] = useState([]);
-  const [trackName, setTrackName] = useState('');
   const [wayPoints, setWayPoints] = useState([]);
 
   const mapRef = useRef();
@@ -47,28 +43,23 @@ function MapStart() {
   // </Marker>
   // )
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  };
+  // const handleInputFile = async (e) => {
+  //   const gpx = new gpxParser();
+  //   gpx.parse(await e.target.files[0].text());
+  //   console.log('gpx: ', gpx);
+  //   const trackName = gpx.metadata.name;
+  //   console.log('trackName:', trackName);
+  //   setWayPoints(gpx.waypoints);
 
-  const handleInputFile = async (e) => {
-    const gpx = new gpxParser();
-    gpx.parse(await e.target.files[0].text());
-    console.log('gpx: ', gpx);
-    const trackName = gpx.metadata.name;
-    console.log('trackName:', trackName);
-    setWayPoints(gpx.waypoints);
+  //   setPositions(gpx.tracks.map((track) => {
+  //     const positions = track.points.map((p) => [p.lat, p.lon]);
+  //     return positions;
+  //   }));
 
-    setPositions(gpx.tracks.map((track) => {
-      const positions = track.points.map((p) => [p.lat, p.lon]);
-      return positions;
-    }));
-
-    // const { current = {}} = mapRef;
-    // const {leafletElement: map} = current;
-    // map.setView(positions[0][0], 14)
-    setTrackName(trackName);
-  };
+  // const { current = {}} = mapRef;
+  // const {leafletElement: map} = current;
+  // map.setView(positions[0][0], 14)
+  // setTrackName(trackName);
 
   console.log(positions);
   return (
@@ -110,7 +101,7 @@ function MapStart() {
               {wayPoints.length > 0 && wayPoints.map(({
                 ele, lat, lon, name,
               }, index) => (
-                <Marker key={index} position={[lat, lon]} icon={getIcon(40)}>
+                <Marker key={index + name} position={[lat, lon]} icon={getIcon(40)}>
                   <Popup>Nom: {name} <br />
                     Hauteur: {ele}m
                   </Popup>
