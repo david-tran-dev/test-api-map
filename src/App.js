@@ -1,7 +1,7 @@
 import './App.css';
 
 // import Map from './Map';
-// import LayersControlExample from './Maptest';
+import LayersControlExample from './Maptest';
 
 // coucou
 import MapStart from './MapStart';
