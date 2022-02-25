@@ -1,11 +1,17 @@
 import './App.css';
-import {MapContainer, TileLayer, Marker, Popup} from 'react-leaflet'
-import Map from './Map';
+
+// import Map from './Map';
+import LayersControlExample from './Maptest';
+
+// coucou
+import MapStart from './MapStart';
 
 function App() {
   return (
-    <div className='App'>
-     <Map />
+    <div className="App">
+      {/* <Map /> */}
+      <MapStart />
+      {/* <LayersControlExample/> */}
     </div>
   );
 }
