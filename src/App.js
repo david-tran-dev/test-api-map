@@ -1,13 +1,7 @@
 import './App.css';
 
 // import Map from './Map';
-<<<<<<< HEAD
 // import  LayersControlExample from './Maptest';
-=======
-import LayersControlExample from './Maptest';
-
-// coucou
->>>>>>> develop
 import MapStart from './MapStart';
 
 function App() {
