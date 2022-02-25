@@ -1,7 +1,7 @@
 import './App.css';
 
 // import Map from './Map';
-import LayersControlExample from './Maptest';
+// import LayersControlExample from './Maptest';
 import MapStart from './MapStart';
 
 function App() {
